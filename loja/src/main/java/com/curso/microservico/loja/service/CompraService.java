@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
 
 @Service
 public class CompraService {
@@ -20,12 +21,12 @@ public class CompraService {
 
     public ResponseEntity realizaCompra(CompraForm pCompra) throws Exception {
 
-//        RestTemplate client = new RestTemplate();
-//        ResponseEntity<FornecedorInformacaoDto> exchange = client.exchange("http://localhost:8081/info/" + pCompra.getEndereco().getEstado(),
-//                HttpMethod.GET, null, FornecedorInformacaoDto.class);
+        String token = apiService.getToken(new URI("http://fornecedor/auth"), pCompra.getLogin());
 
-        apiService.enviarDados("http://localhost:8081/info/", pCompra.getLogin(), new FornecedorInformacaoDto(""), HttpMethod.GET);
-
+        if (token != null) {
+            apiService.enviarDados(token,"http://fornecedor/info/" + pCompra.getEndereco().getEstado(),
+                    pCompra.getLogin(), new FornecedorInformacaoDto(""), HttpMethod.GET);
+        }
 
 
         return null;
