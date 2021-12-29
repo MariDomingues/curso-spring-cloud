@@ -15,11 +15,8 @@ public class CompraItemEntity {
 
     private Long quantidade;
 
-    @Fetch(FetchMode.SELECT)
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "compraitem_compra",
-            joinColumns = {@JoinColumn(name = "id_compraitem")},
-            inverseJoinColumns = {@JoinColumn(name = "id_compra")})
+    @ManyToOne
+    @JoinColumn(name = "id_compra", nullable = false)
     private CompraEntity compra;
 
     public Long getId() {

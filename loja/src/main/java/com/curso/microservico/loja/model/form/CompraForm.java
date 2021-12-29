@@ -10,6 +10,7 @@ public class CompraForm {
     @JsonAlias("itens")
     private List<CompraItemForm> vItem = new ArrayList<>();
     private EnderecoForm endereco;
+    private LoginForm login;
 
     public List<CompraItemForm> getvItem() {
         return vItem;
@@ -25,5 +26,13 @@ public class CompraForm {
 
     public void setEndereco(EnderecoForm endereco) {
         this.endereco = endereco;
+    }
+
+    public LoginForm getLogin() {
+        return login;
+    }
+
+    public void setLogin(LoginForm login) {
+        this.login = login;
     }
 }

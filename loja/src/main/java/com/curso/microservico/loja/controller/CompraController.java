@@ -17,7 +17,7 @@ public class CompraController {
     private CompraService compraService;
 
     @PostMapping
-    public ResponseEntity realizaCompra(@RequestBody CompraForm pCompra) {
+    public ResponseEntity realizaCompra(@RequestBody CompraForm pCompra) throws Exception {
 
         return compraService.realizaCompra(pCompra);
     }

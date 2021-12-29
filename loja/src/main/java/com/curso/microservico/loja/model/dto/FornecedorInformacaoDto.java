@@ -1,6 +1,8 @@
 package com.curso.microservico.loja.model.dto;
 
-public class FornecedorInformacaoDto {
+import com.curso.microservico.loja.interfaces.GenericResponse;
+
+public class FornecedorInformacaoDto implements GenericResponse {
 
     private String endereco;
 

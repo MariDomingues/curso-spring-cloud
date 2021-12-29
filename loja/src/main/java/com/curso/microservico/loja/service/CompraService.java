@@ -15,11 +15,18 @@ public class CompraService {
     @Autowired
     private CompraRepository compraRepository;
 
-    public ResponseEntity realizaCompra(CompraForm pCompra) {
+    @Autowired
+    private ApiService apiService;
 
-        RestTemplate client = new RestTemplate();
-        ResponseEntity<FornecedorInformacaoDto> exchange = client.exchange("http://localhost:8081/info/" + pCompra.getEndereco().getEstado(),
-                HttpMethod.GET, null, FornecedorInformacaoDto.class);
+    public ResponseEntity realizaCompra(CompraForm pCompra) throws Exception {
+
+//        RestTemplate client = new RestTemplate();
+//        ResponseEntity<FornecedorInformacaoDto> exchange = client.exchange("http://localhost:8081/info/" + pCompra.getEndereco().getEstado(),
+//                HttpMethod.GET, null, FornecedorInformacaoDto.class);
+
+        apiService.enviarDados("http://localhost:8081/info/", pCompra.getLogin(), new FornecedorInformacaoDto(""), HttpMethod.GET);
+
+
 
         return null;
     }
