@@ -1,43 +1,15 @@
-# Spring Boot configuration
-spring:
-  database:
-    driverClassName: org.postgresql.Driver
-  datasource:
-    driverClassName: org.postgresql.Driver
-    password: 123
-    url: jdbc:postgresql://localhost:5434/postgres
-    username: postgres
-  jpa:
-    hibernate:
-      ddl-auto: update
-      naming:
-        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
-        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgresPlusDialect
-        jdbc:
-          lob:
-            non_contextual_creation: true
-    show-sql: true
-  application:
-    name: 'loja'
-
-# Logger configuration
-logging:
-  pattern:
-    console: "%d %-5level %logger : %msg%n"
-  level:
-    org.springframework: info
-    org.hibernate: debug
-
-# Server configuration
-server:
-  port: 8080 #set your port
-
 eureka:
   client:
-    register-with-eureka: true
     fetch-registry: true
+    register-with-eureka: true
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+server:
+  port: 8080
+
+spring:
+  cloud:
+    config:
+      import-check:
+        enabled: false

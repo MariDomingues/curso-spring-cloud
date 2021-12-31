@@ -1,8 +1,6 @@
 spring:
   application:
-    name: 'loja'
-  profiles:
-    active: default
+    name: loja
   cloud:
     config:
       uri: http://localhost:8888
