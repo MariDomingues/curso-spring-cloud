@@ -1,42 +1,18 @@
-server:
-    port: 8081
-
-spring:
-    database:
-        driverClassName: org.postgresql.Driver
-    datasource:
-        driverClassName: org.postgresql.Driver
-        password: 123
-        url: jdbc:postgresql://localhost:5434/postgres
-        username: postgres
-    jpa:
-        hibernate:
-            ddl-auto: update
-            naming:
-                implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
-                physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-        properties:
-            hibernate:
-                dialect: org.hibernate.dialect.PostgresPlusDialect
-                jdbc:
-                    lob:
-                        non_contextual_creation: true
-        show-sql: true
-    cloud:
-        config:
-            import-check:
-                enabled: false
-        bootstrap:
-                enabled: true
-
+eureka:
+    client:
+        fetch-registry: true
+        register-with-eureka: true
+        service-url:
+            defaultZone: http://localhost:8761/eureka
 forum:
     jwt:
         expiration: 86400000
         secret: rm'!@N=Ke!~p8VTA2ZRK~nMDQX5Uvm!m'D&]{@Vr?G;2?XhbC:Qa#9#eMLN}x3?JR3.2zr~v)gYF^8:8>:XfB:Ww75N/emt9Yj[bQMNCWwWJ?N,nvH.<2.r~w]*e~vgak)X"v8H`MH/7"2E`,^k@n<vE-wD3g9JWPy;CrY*.Kd2_D])=><D?YhBaSua5hW%{2]_FVXzb9`8FH^b[X3jzVER&:jw2<=c38=>L/zBq`}C6tT*cCSVC^c]-L}&/
 
-eureka:
-    client:
-        register-with-eureka: true
-        fetch-registry: true
-        service-url:
-            defaultZone: http://localhost:8761/eureka
+server:
+    port: 8081
+spring:
+    cloud:
+        config:
+            import-check:
+                enabled: false

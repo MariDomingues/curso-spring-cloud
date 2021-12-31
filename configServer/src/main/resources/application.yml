@@ -6,4 +6,5 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/MariDomingues/microservice-repo
+          uri: https://github.com/MariDomingues/microservice-repo.git
+          searchPaths: 'fornecedor'
