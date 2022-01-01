@@ -17,5 +17,5 @@ public interface FornecedorClient {
     ResponseEntity<TokenDto> autenticar(@RequestBody @Valid LoginForm pLogin);
 
     @RequestMapping(method = RequestMethod.GET, value = "info/{estado}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<FornecedorInformacaoDto> getInformacao(@PathVariable("estado") String pEstado);
+    ResponseEntity<FornecedorInformacaoDto> getInformacao(@PathVariable("estado") String pEstado, @RequestHeader("Authorization") String header);
 }
