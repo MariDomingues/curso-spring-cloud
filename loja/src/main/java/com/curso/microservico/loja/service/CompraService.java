@@ -19,16 +19,18 @@ public class CompraService {
     @Autowired
     private ApiService apiService;
 
-    public ResponseEntity realizaCompra(CompraForm pCompra) throws Exception {
+    private final static String URL_PADRAO = "http://fornecedor/";
 
-        String token = apiService.getToken(new URI("http://fornecedor/auth"), pCompra.getLogin());
+    public ResponseEntity<FornecedorInformacaoDto> realizaCompra(CompraForm pCompra) throws Exception {
+
+        String token = apiService.getToken(pCompra.getLogin());
+        FornecedorInformacaoDto fornecedorInformacao = new FornecedorInformacaoDto();
 
         if (token != null) {
-            apiService.enviarDados(token,"http://fornecedor/info/" + pCompra.getEndereco().getEstado(),
-                    pCompra.getLogin(), new FornecedorInformacaoDto(""), HttpMethod.GET);
+            fornecedorInformacao = (FornecedorInformacaoDto) apiService.enviarDados(token, URL_PADRAO + "info/" + pCompra.getEndereco().getEstado(),
+                    new FornecedorInformacaoDto(), HttpMethod.GET);
         }
 
-
-        return null;
+        return ResponseEntity.ok(fornecedorInformacao);
     }
 }

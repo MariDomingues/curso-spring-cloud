@@ -1,7 +1,7 @@
 package com.curso.microservico.loja.service;
 
+import com.curso.microservico.loja.client.FornecedorClient;
 import com.curso.microservico.loja.interfaces.GenericResponse;
-import com.curso.microservico.loja.model.dto.TokenDto;
 import com.curso.microservico.loja.model.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -20,9 +20,12 @@ public class ApiService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public GenericResponse enviarDados(String pToken, String pUrl, LoginForm pLogin, GenericResponse pDadosResposta, HttpMethod pTipoTransacao) throws Exception {
+    @Autowired
+    private FornecedorClient fornecedorClient;
 
-        ResponseEntity<GenericResponse> retorno = postHttps(pToken, new URI(pUrl), pLogin, pDadosResposta.getClass(), pTipoTransacao);
+    public GenericResponse enviarDados(String pToken, String pUrl, GenericResponse pDadosResposta, HttpMethod pTipoTransacao) throws Exception {
+
+        ResponseEntity<GenericResponse> retorno = postHttps(pToken, new URI(pUrl), pDadosResposta.getClass(), pTipoTransacao);
 
         if (retorno != null && (retorno.getStatusCode() == HttpStatus.OK || retorno.getStatusCode() == HttpStatus.ALREADY_REPORTED)) {
             return retorno.getBody();
@@ -32,7 +35,7 @@ public class ApiService {
         }
     }
 
-    protected ResponseEntity postHttps(String pToken, URI pUrl, LoginForm pLogin, Class<?> pClasse, HttpMethod pTipoTransacao) {
+    protected ResponseEntity postHttps(String pToken, URI pUrl, Class<?> pClasse, HttpMethod pTipoTransacao) {
 
         try {
             MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
@@ -47,14 +50,8 @@ public class ApiService {
         }
     }
 
-    public String getToken(URI pUrl, LoginForm pLogin) {
+    public String getToken(LoginForm pLogin) {
 
-        try {
-            request = new RequestEntity(pLogin, HttpMethod.POST, pUrl);
-            return restTemplate.exchange(request, TokenDto.class).getBody().getToken();
-
-        } catch (Exception ex) {
-            return null;
-        }
+        return fornecedorClient.autenticar(pLogin).getBody().getToken();
     }
 }
