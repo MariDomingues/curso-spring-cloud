@@ -1,8 +1,8 @@
 package com.curso.microservico.fornecedor.classe;
 
-import com.curso.microservico.fornecedor.model.entity.FornecedorInformacaoEntity;
+import com.curso.microservico.fornecedor.model.entity.FornecedorEntity;
 import com.curso.microservico.fornecedor.model.entity.LoginEntity;
-import com.curso.microservico.fornecedor.repository.FornecedorInformacaoRepository;
+import com.curso.microservico.fornecedor.repository.FornecedorRepository;
 import com.curso.microservico.fornecedor.repository.LoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -16,7 +16,7 @@ public class OnApplicationStartUp {
     private LoginRepository loginRepository;
 
     @Autowired
-    private FornecedorInformacaoRepository fornecedorInformacaoRepository;
+    private FornecedorRepository fornecedorRepository;
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
@@ -30,28 +30,28 @@ public class OnApplicationStartUp {
             loginRepository.save(usuario);
         }
 
-        if (fornecedorInformacaoRepository.findAll().isEmpty()) {
+        if (fornecedorRepository.findAll().isEmpty()) {
 
-            FornecedorInformacaoEntity fornecedorInformacao = new FornecedorInformacaoEntity();
+            FornecedorEntity fornecedorInformacao = new FornecedorEntity();
             fornecedorInformacao.setNome("Fornecedor SP");
             fornecedorInformacao.setEndereco("Endereco Fornecedor SP");
             fornecedorInformacao.setEstado("SP");
 
-            fornecedorInformacaoRepository.save(fornecedorInformacao);
+            fornecedorRepository.save(fornecedorInformacao);
 
-            fornecedorInformacao = new FornecedorInformacaoEntity();
+            fornecedorInformacao = new FornecedorEntity();
             fornecedorInformacao.setNome("Fornecedor MG");
             fornecedorInformacao.setEndereco("Endereco Fornecedor MG");
             fornecedorInformacao.setEstado("MG");
 
-            fornecedorInformacaoRepository.save(fornecedorInformacao);
+            fornecedorRepository.save(fornecedorInformacao);
 
-            fornecedorInformacao = new FornecedorInformacaoEntity();
+            fornecedorInformacao = new FornecedorEntity();
             fornecedorInformacao.setNome("Fornecedor RJ");
             fornecedorInformacao.setEndereco("Endereco Fornecedor RJ");
             fornecedorInformacao.setEstado("RJ");
 
-            fornecedorInformacaoRepository.save(fornecedorInformacao);
+            fornecedorRepository.save(fornecedorInformacao);
         }
     }
 }

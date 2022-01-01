@@ -1,6 +1,6 @@
 package com.curso.microservico.loja.service;
 
-import com.curso.microservico.loja.model.dto.FornecedorInformacaoDto;
+import com.curso.microservico.loja.model.dto.FornecedorDto;
 import com.curso.microservico.loja.model.form.CompraForm;
 import com.curso.microservico.loja.repository.CompraRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +16,11 @@ public class CompraService {
     @Autowired
     private ApiService apiService;
 
-    public ResponseEntity<FornecedorInformacaoDto> realizaCompra(CompraForm pCompra) throws Exception {
+    public ResponseEntity<FornecedorDto> realizaCompra(CompraForm pCompra) throws Exception {
 
         try {
 
-            FornecedorInformacaoDto fornecedorInformacao = (FornecedorInformacaoDto) apiService.enviarDados(pCompra.getLogin(), pCompra.getEndereco().getEstado());
+            FornecedorDto fornecedorInformacao = (FornecedorDto) apiService.enviarDados(pCompra.getLogin(), pCompra.getEndereco().getEstado());
 
             return ResponseEntity.ok(fornecedorInformacao);
 

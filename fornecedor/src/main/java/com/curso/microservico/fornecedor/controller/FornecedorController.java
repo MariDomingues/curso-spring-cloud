@@ -1,7 +1,7 @@
 package com.curso.microservico.fornecedor.controller;
 
-import com.curso.microservico.fornecedor.model.dto.FornecedorInformacaoDto;
-import com.curso.microservico.fornecedor.service.FornecedorInformacaoService;
+import com.curso.microservico.fornecedor.model.dto.FornecedorDto;
+import com.curso.microservico.fornecedor.service.FornecedorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("info")
-public class FornecedorInformacaoController {
+public class FornecedorController {
 
     @Autowired
-    private FornecedorInformacaoService fornecedorInformacaoService;
+    private FornecedorService fornecedorService;
 
     @GetMapping("/{estado}")
-    public ResponseEntity<FornecedorInformacaoDto> getInformacao(@PathVariable("estado") String pEstado) {
+    public ResponseEntity<FornecedorDto> getInformacao(@PathVariable("estado") String pEstado) {
 
-        return fornecedorInformacaoService.getInformacao(pEstado);
+        return fornecedorService.getInformacao(pEstado);
     }
 }

@@ -1,6 +1,6 @@
 package com.curso.microservico.loja.controller;
 
-import com.curso.microservico.loja.model.dto.FornecedorInformacaoDto;
+import com.curso.microservico.loja.model.dto.FornecedorDto;
 import com.curso.microservico.loja.model.form.CompraForm;
 import com.curso.microservico.loja.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class CompraController {
     private CompraService compraService;
 
     @PostMapping
-    public ResponseEntity<FornecedorInformacaoDto> realizaCompra(@RequestBody CompraForm pCompra) throws Exception {
+    public ResponseEntity<FornecedorDto> realizaCompra(@RequestBody CompraForm pCompra) throws Exception {
 
         return compraService.realizaCompra(pCompra);
     }

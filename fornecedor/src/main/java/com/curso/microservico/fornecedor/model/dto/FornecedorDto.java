@@ -1,14 +1,14 @@
 package com.curso.microservico.fornecedor.model.dto;
 
-import com.curso.microservico.fornecedor.model.entity.FornecedorInformacaoEntity;
+import com.curso.microservico.fornecedor.model.entity.FornecedorEntity;
 
-public class FornecedorInformacaoDto {
+public class FornecedorDto {
 
     private String nome;
     private String estado;
     private String endereco;
 
-    public FornecedorInformacaoDto(FornecedorInformacaoEntity pInformacao) {
+    public FornecedorDto(FornecedorEntity pInformacao) {
 
         this.nome = pInformacao.getNome();
         this.estado = pInformacao.getEstado();
