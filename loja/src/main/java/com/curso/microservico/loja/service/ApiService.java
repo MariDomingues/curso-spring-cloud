@@ -1,10 +1,9 @@
 package com.curso.microservico.loja.service;
 
 import com.curso.microservico.loja.client.FornecedorClient;
-import com.curso.microservico.loja.client.PedidoClient;
-import com.curso.microservico.loja.model.dto.FornecedorDto;
-import com.curso.microservico.loja.model.dto.PedidoInfoDto;
-import com.curso.microservico.loja.model.form.CompraItemForm;
+import com.curso.microservico.loja.model.dto.fornecedor.FornecedorDto;
+import com.curso.microservico.loja.model.dto.fornecedor.PedidoDto;
+import com.curso.microservico.loja.model.form.CompraItemDto;
 import com.curso.microservico.loja.model.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,9 +16,6 @@ public class ApiService {
     @Autowired
     private FornecedorClient fornecedorClient;
 
-    @Autowired
-    private PedidoClient pedidoClient;
-
     public FornecedorDto getEnderecoFornecedor(LoginForm pLogin, String pEstado) {
 
         try {
@@ -30,14 +26,9 @@ public class ApiService {
         }
     }
 
-    public PedidoInfoDto setPedido(LoginForm pLogin, List<CompraItemForm> pListItem) {
+    public PedidoDto setPedido(LoginForm pLogin, List<CompraItemDto> pListItem) {
 
-        try {
-            return pedidoClient.realizaPedido(pListItem, getHeader(pLogin));
-
-        } catch (Exception ex) {
-            return null;
-        }
+        return fornecedorClient.realizaPedido(pListItem, getHeader(pLogin)).getBody();
     }
 
     private String getHeader(LoginForm pLogin) {

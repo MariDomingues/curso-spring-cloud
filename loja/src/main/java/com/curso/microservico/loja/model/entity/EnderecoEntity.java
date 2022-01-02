@@ -1,11 +1,6 @@
 package com.curso.microservico.loja.model.entity;
 
-import com.curso.microservico.loja.model.form.CompraItemForm;
-import com.curso.microservico.loja.model.form.EnderecoForm;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "compra")

@@ -1,6 +1,6 @@
 package com.curso.microservico.fornecedor.model.dto;
 
-public class ReservaDto {
+public class PedidoInfoDto {
 
 	public Integer idReserva;
 	public Integer tempoPreparo;

@@ -1,4 +1,4 @@
-package com.curso.microservico.loja.model.dto;
+package com.curso.microservico.loja.model.dto.fornecedor;
 
 public class TokenDto {
 

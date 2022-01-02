@@ -8,15 +8,15 @@ import java.util.List;
 public class CompraForm {
 
     @JsonAlias("itens")
-    private List<CompraItemForm> vItem = new ArrayList<>();
+    private List<CompraItemDto> vItem = new ArrayList<>();
     private EnderecoForm endereco;
     private LoginForm login;
 
-    public List<CompraItemForm> getvItem() {
+    public List<CompraItemDto> getvItem() {
         return vItem;
     }
 
-    public void setvItem(List<CompraItemForm> vItem) {
+    public void setvItem(List<CompraItemDto> vItem) {
         this.vItem = vItem;
     }
 

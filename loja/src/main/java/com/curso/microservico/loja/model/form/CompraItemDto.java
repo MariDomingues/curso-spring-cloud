@@ -1,11 +1,14 @@
 package com.curso.microservico.loja.model.form;
 
-public class CompraItemForm {
+public class CompraItemDto {
 
     private long id;
-    private long quantidade;
+    private int quantidade;
 
-    public CompraItemForm(long id, long quantidade) {
+    public CompraItemDto() {
+    }
+
+    public CompraItemDto(long id, int quantidade) {
         this.id = id;
         this.quantidade = quantidade;
     }
@@ -18,11 +21,11 @@ public class CompraItemForm {
         this.id = id;
     }
 
-    public long getQuantidade() {
+    public int getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(long quantidade) {
+    public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
 }
