@@ -14,7 +14,7 @@ public class PedidoEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Integer tempoDePreparo;
+	private Integer tempoPreparo;
 
 	@Enumerated(EnumType.STRING)
 	private PedidoStatus status;
@@ -63,13 +63,13 @@ public class PedidoEntity {
 		this.status = status;
 	}
 
-	public Integer getTempoDePreparo() {
+	public Integer getTempoPreparo() {
 
-		return tempoDePreparo;
+		return tempoPreparo;
 	}
 
-	public void setTempoDePreparo(Integer tempoDePreparo) {
+	public void setTempoPreparo(Integer tempoPreparo) {
 
-		this.tempoDePreparo = tempoDePreparo;
+		this.tempoPreparo = tempoPreparo;
 	}
 }

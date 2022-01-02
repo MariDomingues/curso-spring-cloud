@@ -7,6 +7,7 @@ import com.curso.microservico.fornecedor.model.entity.ProdutoEntity;
 import com.curso.microservico.fornecedor.repository.PedidoRepository;
 import com.curso.microservico.fornecedor.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,22 +22,22 @@ public class PedidoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public PedidoEntity realizaPedido(List<PedidoItemDto> pListItem) {
+    public ResponseEntity<PedidoEntity> realizaPedido(List<PedidoItemDto> pListItem) {
 
         if (pListItem == null) {
-            return null;
+            return ResponseEntity.notFound().build();
         }
 
         List<PedidoItemEntity> vItem = toPedidoItem(pListItem);
         PedidoEntity pedido = new PedidoEntity(vItem);
-        pedido.setTempoDePreparo(pListItem.size());
+        pedido.setTempoPreparo(pListItem.size());
 
-        return pedidoRepository.save(pedido);
+        return ResponseEntity.ok(pedidoRepository.save(pedido));
     }
 
-    public PedidoEntity getPedido(Long pIdPedido) {
+    public ResponseEntity<PedidoEntity> getPedido(Long pIdPedido) {
 
-        return this.pedidoRepository.findById(pIdPedido).orElse(new PedidoEntity());
+        return ResponseEntity.ok(pedidoRepository.findById(pIdPedido).orElse(new PedidoEntity()));
     }
 
     private List<PedidoItemEntity> toPedidoItem(List<PedidoItemDto> pListItem) {
