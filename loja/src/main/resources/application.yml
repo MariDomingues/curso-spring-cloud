@@ -13,7 +13,3 @@ spring:
     config:
       import-check:
         enabled: false
-
-logstash:
-  host: localhost
-  port: 5000
