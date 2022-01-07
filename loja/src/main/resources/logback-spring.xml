@@ -2,7 +2,7 @@
 <!DOCTYPE configuration>
 
 <configuration scan="true">
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
     <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
         <param name="Encoding" value="UTF-8"/>
@@ -11,7 +11,7 @@
         <encoder class="net.logstash.logback.encoder.LogstashEncoder">
             <customFields>{"app_name":"Loja", "app_port": "8080"}</customFields>
         </encoder>
-        <keepAliveDuration>5 minuts</keepAliveDuration>
+<!--        <suffixPattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</suffixPattern>-->
     </appender>
 
     <root level="INFO">
