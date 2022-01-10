@@ -14,9 +14,6 @@ spring:
       import-check:
         enabled: false
 
-logging:
-  file: D:/curso/java/SpringCloud/loja/logs/spring-boot-logger.log
-
 logstash:
   host: localhost
   port: 5000
