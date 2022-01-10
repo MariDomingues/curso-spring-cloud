@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration>
 
 <configuration scan="true">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
@@ -56,5 +55,4 @@
         <appender-ref ref="Console" />
         <appender-ref ref="logstash"/>
     </logger>
-
 </configuration>
