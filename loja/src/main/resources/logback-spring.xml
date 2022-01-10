@@ -1,52 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration>
+<!DOCTYPE configuration>
 
-    <springProperty scope="context" name="application_name" source="spring.application.name"/>
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <appender name="jsonConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
-            <providers>
-                <timestamp>
-                    <timeZone>UTC</timeZone>
-                </timestamp>
-                <version/>
-                <logLevel/>
-                <message/>
-                <loggerName/>
-                <threadName/>
-                <context/>
-                <pattern>
-                    <omitEmptyFields>true</omitEmptyFields>
-                    <pattern>
-                        {
-                        "trace": {
-                        "trace_id": "%mdc{X-B3-TraceId}",
-                        "span_id": "%mdc{X-B3-SpanId}",
-                        "parent_span_id": "%mdc{X-B3-ParentSpanId}",
-                        "exportable": "%mdc{X-Span-Export}"
-                        }
-                        }
-                    </pattern>
-                </pattern>
-                <mdc>
-                    <excludeMdcKeyName>traceId</excludeMdcKeyName>
-                    <excludeMdcKeyName>spanId</excludeMdcKeyName>
-                    <excludeMdcKeyName>parentId</excludeMdcKeyName>
-                    <excludeMdcKeyName>spanExportable</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-B3-TraceId</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-B3-SpanId</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-B3-ParentSpanId</excludeMdcKeyName>
-                    <excludeMdcKeyName>X-Span-Export</excludeMdcKeyName>
-                </mdc>
-                <stackTrace/>
-            </providers>
+    <appender name="logstash" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <param name="Encoding" value="UTF-8"/>
+        <remoteHost>localhost</remoteHost>
+        <port>5000</port>
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+            <customFields>{"app_name":"Loja", "app_port": "8080"}</customFields>
         </encoder>
+<!--        <suffixPattern>%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(-&#45;&#45;){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}</suffixPattern>-->
     </appender>
 
     <root level="INFO">
-        <appender-ref ref="jsonConsoleAppender"/>
+        <appender-ref ref="logstash"/>
     </root>
 
+    <root level="ERROR">
+        <appender-ref ref="logstash"/>
+    </root>
 </configuration>
 
 
@@ -94,28 +68,5 @@
 <!--        <appender-ref ref="RollingFile" />-->
 <!--        <appender-ref ref="Console" />-->
 <!--    </logger>-->
-
-<!--</configuration>-->
-
-<!--<configuration>-->
-
-<!--    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
-<!--        <encoder>-->
-<!--            <pattern> %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n </pattern>-->
-<!--        </encoder>-->
-<!--    </appender>-->
-<!--    <appender name="SAVE-TO-FILE" class="ch.qos.logback.core.FileAppender">-->
-<!--        <file>logs/application.log</file>-->
-<!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
-<!--            <Pattern> %d{dd-MM-yyyy HH:mm:ss.SSS} [%thread] %-5level %logger{36}.%M - %msg%n </Pattern>-->
-<!--        </encoder>-->
-<!--    </appender>-->
-<!--    <logger name="com.demo.ELK" additivity="false" level="info">-->
-<!--        <appender-ref ref="SAVE-TO-FILE" />-->
-<!--        <appender-ref ref="STDOUT" />-->
-<!--    </logger>-->
-<!--    <root level="INFO">-->
-<!--        <appender-ref ref="STDOUT" />-->
-<!--    </root>-->
 
 <!--</configuration>-->
