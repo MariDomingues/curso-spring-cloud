@@ -8,6 +8,7 @@ import com.curso.microservico.loja.model.form.CompraItemDto;
 import com.curso.microservico.loja.model.form.LoginForm;
 import com.curso.microservico.loja.repository.CompraRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,8 @@ public class CompraService {
     @Autowired
     private ApiService apiService;
 
-    @CircuitBreaker(name = "realizaCompra", fallbackMethod = "fallbackForCreateRequest")
+//    @CircuitBreaker(name = "realizaCompra", fallbackMethod = "fallbackForCreateRequest")
+    @Retry(name = "realizaCompra", fallbackMethod = "fallbackForCreateRequest")
     public ResponseEntity realizaCompra(CompraForm pCompra) throws Exception {
 
         log.info("Buscando informações do Fornecedor de {}", pCompra.getEndereco().getEstado());

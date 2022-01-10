@@ -14,41 +14,52 @@ spring:
       import-check:
         enabled: false
 
-resilience4j.circuitbreaker:
-  configs:
-    default:
-      registerHealthIndicator: true
-      ringBufferSizeInClosedState: 4
-      ringBufferSizeInHalfOpenState: 2
-      automaticTransitionFromOpenToHalfOpenEnabled: true
-      waitDurationInOpenState: 20s
-      failureRateThreshold: 50
-      eventConsumerBufferSize: 10
-      recordExceptions:
-        - java.net.SocketTimeoutException
-        - java.net.ConnectException
-      recordExceptionsAsSuccess:
-        - org.springframework.web.client.HttpClientErrorException
-    shared:
-      registerHealthIndicator: true
-      ringBufferSizeInClosedState: 4
-      ringBufferSizeInHalfOpenState: 2
-      waitDurationInOpenState: 20s
-      failureRateThreshold: 50
-      eventConsumerBufferSize: 10
-  instances:
-    callOtherService:
-      baseConfig: default
-      ringBufferSizeInClosedState: 4
-      registerHealthIndicator: true
-      ignoreExceptions:
-        # We need to ignore 4xx errors returned by the server as they are valid business case.
-        - org.springframework.web.client.HttpClientErrorException
-      recordExceptions:
-        # We need to record all http errors
-        - org.springframework.web.client.RestClientException
-      recordExceptionsAsSuccess:
-        - org.springframework.web.client.HttpClientErrorException
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 4
+        ringBufferSizeInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 20s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+        recordExceptions:
+          - java.net.SocketTimeoutException
+          - java.net.ConnectException
+        recordExceptionsAsSuccess:
+          - org.springframework.web.client.HttpClientErrorException
+      shared:
+        registerHealthIndicator: true
+        ringBufferSizeInClosedState: 4
+        ringBufferSizeInHalfOpenState: 2
+        waitDurationInOpenState: 20s
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+    instances:
+      callOtherService:
+        baseConfig: default
+        ringBufferSizeInClosedState: 4
+        registerHealthIndicator: true
+        ignoreExceptions:
+          # We need to ignore 4xx errors returned by the server as they are valid business case.
+          - org.springframework.web.client.HttpClientErrorException
+        recordExceptions:
+          # We need to record all http errors
+          - org.springframework.web.client.RestClientException
+        recordExceptionsAsSuccess:
+          - org.springframework.web.client.HttpClientErrorException
+
+  retry:
+    instances:
+      throwingException:
+        maxRetryAttempts: 10
+        waitDuration: 5s
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+        retryExceptions:
+          - java.lang.Exception
 
 #resilience4j.ratelimiter:
 #  instances:
@@ -57,11 +68,6 @@ resilience4j.circuitbreaker:
 #      limitRefreshPeriod: 10000 #ms
 #      timeoutDuration: 1000ms
 
-resilience4j.retry:
-  instances:
-    get:
-      maxRetryAttempts: 3
-      waitDuration: 5000
 
 #resilience4j.bulkhead:
 #  instances:
