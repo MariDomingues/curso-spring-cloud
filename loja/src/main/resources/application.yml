@@ -60,6 +60,12 @@ resilience4j:
         exponentialBackoffMultiplier: 2
         retryExceptions:
           - java.lang.Exception
+  
+  bulkhead:
+    instances:
+      get:
+        max-concurrent-calls: 10
+        maxWaitDuration: 10ms
 
 #resilience4j.ratelimiter:
 #  instances:
@@ -67,10 +73,3 @@ resilience4j:
 #      limitForPeriod: 5
 #      limitRefreshPeriod: 10000 #ms
 #      timeoutDuration: 1000ms
-
-
-#resilience4j.bulkhead:
-#  instances:
-#    get:
-#      max-concurrent-calls: 10
-#      maxWaitDuration: 10ms

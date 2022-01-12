@@ -3,6 +3,7 @@ package com.curso.microservico.loja.service;
 import com.curso.microservico.loja.model.dto.CompraDto;
 import com.curso.microservico.loja.model.dto.fornecedor.FornecedorDto;
 import com.curso.microservico.loja.model.dto.fornecedor.PedidoDto;
+import com.curso.microservico.loja.model.entity.CompraEntity;
 import com.curso.microservico.loja.model.form.CompraForm;
 import com.curso.microservico.loja.model.form.CompraItemDto;
 import com.curso.microservico.loja.model.form.LoginForm;
@@ -62,5 +63,11 @@ public class CompraService {
         log.error("Inside circuit breaker fallbackForCreateRequest, cause - {}", pException.toString());
 
         return ResponseEntity.badRequest().body("Inside circuit breaker fallback method. Some error occurred while calling service for buy");
+    }
+
+    @Retry(name = "getCompra", fallbackMethod = "fallbackForCreateRequest")
+    public ResponseEntity getCompra(Long pIdCompra) {
+
+        return ResponseEntity.ok(compraRepository.findById(pIdCompra).orElse(new CompraEntity()));
     }
 }
